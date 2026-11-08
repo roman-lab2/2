@@ -263,7 +263,10 @@ export default function BookingPage() {
             обратитесь к владельцу проекта.
           </p>
           <div className="success-actions">
-            <button className="button button-gold" onClick={downloadCalendar}>
+            <button
+              className="button button-primary"
+              onClick={downloadCalendar}
+            >
               Добавить в календарь <Icon name="calendar" size={18} />
             </button>
             <Link className="button button-outline" href="/">
@@ -362,7 +365,7 @@ export default function BookingPage() {
                     Цены за работу, без запчастей
                   </span>
                   <button
-                    className="button button-gold"
+                    className="button button-primary"
                     disabled={!service}
                     onClick={() => move(2)}
                   >
@@ -477,7 +480,7 @@ export default function BookingPage() {
                     ← Назад
                   </button>
                   <button
-                    className="button button-gold"
+                    className="button button-primary"
                     disabled={hour === null || loading || !!slotError}
                     onClick={() => move(3)}
                   >
@@ -565,7 +568,7 @@ export default function BookingPage() {
                     ← Назад
                   </button>
                   <button
-                    className="button button-gold"
+                    className="button button-primary"
                     disabled={saving || !consent}
                   >
                     {saving ? "Сохраняем…" : "Забронировать время"}{" "}

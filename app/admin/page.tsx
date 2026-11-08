@@ -232,7 +232,7 @@ export default function Admin() {
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </label>
-              <button className="button button-gold" disabled={logging}>
+              <button className="button button-primary" disabled={logging}>
                 {logging ? "Проверяем…" : "Войти в панель"}{" "}
                 <Icon name="diagonal" size={18} />
               </button>
@@ -418,7 +418,7 @@ export default function Admin() {
                   <div className="record-actions">
                     {b.status === "booked" && (
                       <button
-                        className="button button-small button-gold"
+                        className="button button-small button-primary"
                         disabled={!!busy}
                         onClick={() => updateStatus(b, "confirmed")}
                       >
@@ -427,7 +427,7 @@ export default function Admin() {
                     )}
                     {b.status === "confirmed" && (
                       <button
-                        className="button button-small button-gold"
+                        className="button button-small button-primary"
                         disabled={!!busy || new Date(b.starts_at) > new Date()}
                         title="Выполнить можно после начала приёма"
                         onClick={() => updateStatus(b, "completed")}

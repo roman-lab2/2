@@ -4,7 +4,7 @@ export default function NotFound() {
     <main id="main" className="container empty-page">
       <h1>Страница не найдена</h1>
       <p>Проверьте адрес или перейдите на главную.</p>
-      <Link className="button button-gold" href="/">
+      <Link className="button button-primary" href="/">
         На главную →
       </Link>
     </main>

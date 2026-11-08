@@ -55,7 +55,7 @@ export function CTA() {
             <br className="desktop-break" /> Запись займёт несколько минут.
           </p>
         </div>
-        <Link className="button button-gold" href="/booking/">
+        <Link className="button button-primary" href="/booking/">
           Выбрать время <Icon name="arrow" size={18} />
         </Link>
       </div>

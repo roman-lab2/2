@@ -44,7 +44,7 @@ export default function Contacts() {
               </p>
             </div>
           </div>
-          <Link href="/booking/" className="button button-gold">
+          <Link href="/booking/" className="button button-primary">
             Записаться онлайн <Icon name="diagonal" size={18} />
           </Link>
         </div>

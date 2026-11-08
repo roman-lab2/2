@@ -6,36 +6,39 @@ export default function Home() {
   return (
     <main id="main">
       <section className="hero">
-        <img
-          className="hero-image"
-          src="/images/hero.jpg"
-          alt="Автомобиль на дороге"
-          fetchPriority="high"
-          width={2000}
-          height={1334}
-        />
-        <div className="hero-shade" />
-        <div className="container hero-content">
-          <p className="hero-kicker">AUTERA · МОСКВА</p>
-          <h1>Обслуживание и ремонт автомобилей</h1>
-          <p>
-            Диагностика, плановое ТО и ремонт легковых автомобилей.
-            <br className="desktop-break" /> Выберите услугу и запишитесь на
-            свободное время.
-          </p>
-          <div className="hero-actions">
-            <Link href="/booking/" className="button button-gold">
-              Записаться <Icon name="arrow" size={19} />
-            </Link>
-            <Link href="/services/" className="text-link">
-              Услуги и цены <Icon name="arrow" size={18} />
-            </Link>
+        <div className="container hero-layout">
+          <div className="hero-content">
+            <p className="hero-kicker">AUTERA · МОСКВА</p>
+            <h1>
+              <span>Обслуживание</span>
+              <span>и ремонт</span>
+              <span>автомобилей</span>
+            </h1>
+            <p>Диагностика, плановое ТО и ремонт легковых автомобилей.</p>
+            <div className="hero-actions">
+              <Link href="/booking/" className="button button-primary">
+                Записаться <Icon name="arrow" size={19} />
+              </Link>
+              <Link href="/services/" className="text-link">
+                Услуги и цены <Icon name="arrow" size={18} />
+              </Link>
+            </div>
+            <div className="hero-note">
+              <Icon name="clock" size={17} />
+              <span>Ежедневно, 09:00–19:00</span>
+              <span className="note-divider" />
+              <span>Без регистрации</span>
+            </div>
           </div>
-          <div className="hero-note">
-            <Icon name="clock" size={17} />
-            <span>Ежедневно, 09:00–19:00</span>
-            <span className="note-divider" />
-            <span>Без регистрации</span>
+          <div className="hero-visual">
+            <img
+              className="hero-image"
+              src="/images/hero-moscow.webp"
+              alt="Серый спортивный автомобиль на набережной в Москве"
+              fetchPriority="high"
+              width={1536}
+              height={1024}
+            />
           </div>
         </div>
       </section>

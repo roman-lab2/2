@@ -85,7 +85,7 @@ export function Header() {
           </nav>
           <Link
             href="/booking/"
-            className="button button-gold header-book"
+            className="button button-primary header-book"
             onClick={() => setOpen(false)}
           >
             Записаться <Icon name="arrow" size={17} />
