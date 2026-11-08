@@ -1,0 +1,2 @@
+import Link from "next/link";
+export default function Booking(){return <main className="wrap"><nav className="nav"><div className="brand">aut<span>era</span></div><Link href="/">На главную</Link></nav><section className="section panel"><h1>Запись в сервис</h1><p className="muted">Запись через базу подключим после завершения auth и проверки доступных слотов. Сейчас это страница-заготовка.</p><Link className="btn" href="/login">Войти в аккаунт</Link></section></main>}
