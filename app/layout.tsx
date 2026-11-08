@@ -1,4 +1,34 @@
 import type { Metadata } from "next";
+import { Header, Footer } from "@/components/chrome";
 import "./globals.css";
-export const metadata: Metadata = { title:"Autera — автосервис", description:"Автосервис всех марок в Звенигороде" };
-export default function RootLayout({children}:{children:React.ReactNode}) { return <html lang="ru"><body>{children}</body></html>; }
+export const metadata: Metadata = {
+  metadataBase: new URL(
+    "https://autera-moscow-demo-nov8.pinknectarine2.chatgpt.site",
+  ),
+  title: {
+    default: "AUTERA — больше уверенности на каждом километре",
+    template: "%s · AUTERA",
+  },
+  description:
+    "Демонстрационный автосервис в Москве. Диагностика, обслуживание и ремонт. Онлайн-запись на свободное время без регистрации.",
+  robots: { index: false, follow: false },
+  icons: { icon: "/favicon.svg" },
+};
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <html lang="ru">
+      <body>
+        <a href="#main" className="skip-link">
+          Перейти к содержимому
+        </a>
+        <Header />
+        {children}
+        <Footer />
+      </body>
+    </html>
+  );
+}

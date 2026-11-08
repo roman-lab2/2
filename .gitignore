@@ -1,0 +1,9 @@
+node_modules/
+.next/
+out/
+.env*
+!.env.example
+*.tsbuildinfo
+.openai/deploy*.tar.gz
+
+supabase/.temp/
