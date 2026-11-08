@@ -26,8 +26,6 @@ export default function Home() {
             <div className="hero-note">
               <Icon name="clock" size={17} />
               <span>Ежедневно, 09:00–19:00</span>
-              <span className="note-divider" />
-              <span>Без регистрации</span>
             </div>
           </div>
           <div className="hero-visual">
