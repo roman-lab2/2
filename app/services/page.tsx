@@ -4,13 +4,9 @@ export const metadata: Metadata = { title: "Услуги" };
 export default function Services() {
   return (
     <main id="main">
-      <PageIntro
-        eyebrow="УСЛУГИ"
-        title="Знаем автомобиль."
-        accent="Понимаем вас."
-      >
-        Шесть направлений заботы об автомобиле. Выберите услугу — и удобное
-        время для первого осмотра.
+      <PageIntro eyebrow="УСЛУГИ" title="Услуги автосервиса">
+        Диагностика, обслуживание и ремонт. По каждой услуге можно выбрать время
+        приёма.
       </PageIntro>
       <section className="container section section-topless">
         <ServiceGrid full />

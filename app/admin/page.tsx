@@ -197,11 +197,7 @@ export default function Admin() {
             <Icon name="lock" size={27} />
           </span>
           <span className="eyebrow">AUTERA / ДЛЯ АДМИНИСТРАТОРА</span>
-          <h1>
-            Ваш сервис.
-            <br />
-            <em>Под контролем.</em>
-          </h1>
+          <h1>Вход для администратора</h1>
           <p className="muted">Закрытая панель управления записями.</p>
           {error && (
             <div className="alert alert-error" role="alert">
@@ -276,9 +272,7 @@ export default function Admin() {
       <div className="admin-heading">
         <div>
           <span className="eyebrow">AUTERA / ПАНЕЛЬ УПРАВЛЕНИЯ</span>
-          <h1>
-            Сервис <em>под контролем.</em>
-          </h1>
+          <h1>Записи в сервис</h1>
           <p className="muted">{user?.email} · время московское</p>
         </div>
         <button className="button button-outline" onClick={logout}>
@@ -391,7 +385,7 @@ export default function Admin() {
           ) : filtered.length === 0 ? (
             <div className="admin-empty">
               <Icon name="calendar" size={35} />
-              <h3>Пока тихо.</h3>
+              <h3>Записей пока нет</h3>
               <p>Новые записи появятся здесь после бронирования на сайте.</p>
             </div>
           ) : (

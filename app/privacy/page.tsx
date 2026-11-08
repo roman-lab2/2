@@ -2,11 +2,7 @@ import { PageIntro } from "@/components/sections";
 export default function Privacy() {
   return (
     <main id="main">
-      <PageIntro
-        eyebrow="ОБРАБОТКА ДАННЫХ"
-        title="Ваши данные."
-        accent="Понятные правила."
-      >
+      <PageIntro eyebrow="ОБРАБОТКА ДАННЫХ" title="Обработка данных">
         Правила работы формы в демонстрационном проекте Autera.
       </PageIntro>
       <article className="container legal section section-topless">

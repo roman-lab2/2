@@ -6,11 +6,7 @@ export const metadata: Metadata = { title: "Контакты" };
 export default function Contacts() {
   return (
     <main id="main">
-      <PageIntro
-        eyebrow="КОНТАКТЫ"
-        title="Будем на связи."
-        accent="И рядом с вашим авто."
-      >
+      <PageIntro eyebrow="КОНТАКТЫ" title="Контакты">
         Демонстрационный автосервис в Москве. Запись сохраняется в системе,
         фактический визит в сервис не предусмотрен.
       </PageIntro>
@@ -66,9 +62,7 @@ export default function Contacts() {
             <Icon name="pin" size={32} />
             <strong>AUTERA.</strong>
           </div>
-          <div className="map-disclaimer">
-            КОНЦЕПТ ЛОКАЦИИ / НЕ КАРТА ПРОЕЗДА
-          </div>
+          <div className="map-disclaimer">ДЕМО · НЕ КАРТА ПРОЕЗДА</div>
         </div>
       </section>
     </main>

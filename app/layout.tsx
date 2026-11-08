@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Header, Footer } from "@/components/chrome";
 import "./globals.css";
 export const metadata: Metadata = {
@@ -6,13 +6,20 @@ export const metadata: Metadata = {
     "https://autera-moscow-demo-nov8.pinknectarine2.chatgpt.site",
   ),
   title: {
-    default: "AUTERA — больше уверенности на каждом километре",
+    default: "AUTERA — автосервис в Москве",
     template: "%s · AUTERA",
   },
   description:
     "Демонстрационный автосервис в Москве. Диагностика, обслуживание и ремонт. Онлайн-запись на свободное время без регистрации.",
   robots: { index: false, follow: false },
   icons: { icon: "/favicon.svg" },
+};
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: "#101210",
+  colorScheme: "dark",
 };
 export default function RootLayout({
   children,

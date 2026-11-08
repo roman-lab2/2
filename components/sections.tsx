@@ -1,9 +1,12 @@
 import Link from "next/link";
 import { Icon } from "./icon";
 import { money, services } from "@/lib/catalog";
+
 export function ServiceGrid({ full = false }: { full?: boolean }) {
   return (
-    <div className="service-grid">
+    <div
+      className={full ? "service-grid" : "service-grid service-grid-compact"}
+    >
       {services.map((s) => (
         <Link
           href={"/booking/?service=" + s.id}
@@ -12,12 +15,13 @@ export function ServiceGrid({ full = false }: { full?: boolean }) {
         >
           <div className="service-card-top">
             <span className="service-icon">
-              <Icon name={s.icon} size={30} />
+              <Icon name={s.icon} size={28} />
             </span>
-            <span className="card-number">/{s.number}</span>
           </div>
-          <h3>{s.name}</h3>
-          <p>{full ? s.description : s.subtitle}</p>
+          <div className="service-card-description">
+            <h3>{s.name}</h3>
+            <p>{full ? s.description : s.subtitle}</p>
+          </div>
           {full && (
             <ul className="task-list">
               {s.tasks.map((task) => (
@@ -32,51 +36,40 @@ export function ServiceGrid({ full = false }: { full?: boolean }) {
             <span>
               от <strong>{money(s.price)} ₽</strong>
             </span>
-            <span className="round-arrow">
-              <Icon name="diagonal" size={18} />
-            </span>
+            <Icon name="arrow" size={18} />
           </div>
         </Link>
       ))}
     </div>
   );
 }
+
 export function CTA() {
   return (
     <section className="container section cta-wrap">
       <div className="cta">
         <div>
-          <span className="eyebrow">НАЧНЁМ СО ЗНАКОМСТВА</span>
-          <h2>
-            Ваш следующий
-            <br />
-            маршрут — <em>без забот.</em>
-          </h2>
+          <h2>Запись на сервис</h2>
           <p>
-            Выберите услугу и удобное время.
-            <br />
-            Всё остальное обсудим на месте.
+            Выберите услугу, дату и свободное время.
+            <br className="desktop-break" /> Запись займёт несколько минут.
           </p>
         </div>
         <Link className="button button-gold" href="/booking/">
-          Выбрать время <Icon name="diagonal" size={18} />
+          Выбрать время <Icon name="arrow" size={18} />
         </Link>
-        <span className="cta-watermark" aria-hidden="true">
-          A
-        </span>
       </div>
     </section>
   );
 }
+
 export function PageIntro({
   eyebrow,
   title,
-  accent,
   children,
 }: {
   eyebrow: string;
   title: string;
-  accent: string;
   children: React.ReactNode;
 }) {
   return (
@@ -86,12 +79,7 @@ export function PageIntro({
         <span>/</span>
         <span>{eyebrow}</span>
       </div>
-      <span className="eyebrow">AUTERA / {eyebrow}</span>
-      <h1>
-        {title}
-        <br />
-        <em>{accent}</em>
-      </h1>
+      <h1>{title}</h1>
       <p>{children}</p>
     </div>
   );

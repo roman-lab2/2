@@ -7,13 +7,9 @@ export const metadata: Metadata = { title: "Цены" };
 export default function Prices() {
   return (
     <main id="main">
-      <PageIntro
-        eyebrow="ЦЕНЫ"
-        title="Без мелкого шрифта."
-        accent="С понятной сметой."
-      >
-        Ориентиры для знакомства с сервисом. Итоговый состав работ, запчасти и
-        стоимость согласуем после диагностики.
+      <PageIntro eyebrow="ЦЕНЫ" title="Стоимость работ">
+        Примерный прайс на основные работы. Точная стоимость зависит от
+        автомобиля и результатов диагностики.
       </PageIntro>
       <section className="container section section-topless">
         <div className="price-table">
@@ -45,7 +41,7 @@ export default function Prices() {
         <div className="info-box">
           <Icon name="shield" size={25} />
           <div>
-            <h3>Сначала договоримся. Потом приступим.</h3>
+            <h3>Что входит в стоимость</h3>
             <p>
               Цены приведены для демо, запчасти оплачиваются отдельно. Слот на 1
               час резервирует приём и первичную диагностику, а не полное время

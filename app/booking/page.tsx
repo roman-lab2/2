@@ -109,7 +109,11 @@ export default function BookingPage() {
   function move(next: number) {
     setError("");
     setStep(next);
-    document.getElementById("booking-heading")?.focus();
+    requestAnimationFrame(() => {
+      const heading = document.getElementById("booking-heading");
+      heading?.focus({ preventScroll: true });
+      heading?.scrollIntoView({ block: "start" });
+    });
   }
   async function submit(e: React.FormEvent) {
     e.preventDefault();
@@ -217,8 +221,10 @@ export default function BookingPage() {
     const a = document.createElement("a");
     a.href = url;
     a.download = "autera-booking.ics";
+    document.body.appendChild(a);
     a.click();
-    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 30000);
   }
   if (result)
     return (
@@ -227,12 +233,7 @@ export default function BookingPage() {
           <span className="success-icon">
             <Icon name="check" size={36} />
           </span>
-          <span className="eyebrow">ВРЕМЯ ЗАКРЕПЛЕНО ЗА ВАМИ</span>
-          <h1>
-            Вы записаны.
-            <br />
-            <em>Всё по плану.</em>
-          </h1>
+          <h1>Запись сохранена</h1>
           <p className="reference">
             № AU-{result.id.replace(/-/g, "").slice(0, 10).toUpperCase()}
           </p>
@@ -280,13 +281,8 @@ export default function BookingPage() {
         <span>Онлайн-запись</span>
       </div>
       <div className="booking-intro">
-        <span className="eyebrow">AUTERA / ОНЛАЙН-ЗАПИСЬ</span>
-        <h1>
-          Ваше время.
-          <br />
-          <em>Ваш следующий шаг.</em>
-        </h1>
-        <p>Услуга, удобное время и пара деталей. Без регистрации.</p>
+        <h1>Запись в сервис</h1>
+        <p>Выберите услугу и время, затем оставьте контакты.</p>
       </div>
       <div className="booking-layout">
         <div className="booking-form-panel">
@@ -316,10 +312,10 @@ export default function BookingPage() {
           <div className="form-body">
             <h2 id="booking-heading" tabIndex={-1}>
               {step === 1
-                ? "С чего начнём?"
+                ? "Выберите услугу"
                 : step === 2
-                  ? "Когда вам удобно?"
-                  : "Познакомимся ближе."}
+                  ? "Выберите дату и время"
+                  : "Контакты и автомобиль"}
             </h2>
             <p className="muted form-caption">
               {step === 1
@@ -524,7 +520,7 @@ export default function BookingPage() {
                     Автомобиль
                     <input
                       className="input"
-                      placeholder="Марка, модель и год — например, Kia Rio, 2020"
+                      placeholder="Например, Kia Rio, 2020"
                       value={car}
                       onChange={(e) => setCar(e.target.value)}
                       minLength={2}
@@ -581,12 +577,8 @@ export default function BookingPage() {
           </div>
         </div>
         <aside className="booking-summary">
-          <span className="eyebrow">ВАША ЗАПИСЬ</span>
-          <div className="summary-car">
-            <Icon name="car" size={54} />
-            <span>AUTERA.</span>
-          </div>
-          <h3>{service?.name || "Начнём с услуги"}</h3>
+          <span className="eyebrow">Ваша запись</span>
+          <h3>{service?.name || "Услуга не выбрана"}</h3>
           <div className="summary-line">
             <Icon name="calendar" size={18} />
             <span>
@@ -620,7 +612,7 @@ export default function BookingPage() {
             <Icon name="shield" size={20} />
             <span>Время резервируется сразу после успешной записи.</span>
           </div>
-          <span className="demo-tag">ДЕМО · МОСКВА · ОДИН ПОСТ</span>
+          <span className="demo-tag">ДЕМО · МОСКВА</span>
         </aside>
       </div>
     </main>
