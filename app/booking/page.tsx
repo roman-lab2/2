@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { Icon } from "@/components/icon";
 import { services, money } from "@/lib/catalog";
+import { MailStatus, normalizeEmail } from "@/lib/email";
 import { supabase } from "@/lib/supabase/client";
 import {
   addDays,
@@ -27,18 +28,23 @@ export default function BookingPage() {
   const [refresh, setRefresh] = useState(0);
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+  const [mailStatus, setMailStatus] = useState<MailStatus | null>(null);
   const [car, setCar] = useState("");
   const [comment, setComment] = useState("");
   const [consent, setConsent] = useState(false);
   const [error, setError] = useState("");
   const [saving, setSaving] = useState(false);
-  const [result, setResult] = useState<{ id: string; starts: string } | null>(
-    null,
-  );
+  const [result, setResult] = useState<{
+    id: string;
+    starts: string;
+    email: string;
+  } | null>(null);
   const [today, setToday] = useState("");
   const id = useRef("");
   const submittedPayload = useRef("");
   useEffect(() => {
+    supabase.rpc("autera_mail_status").then(({ data }) => setMailStatus(data));
     const date = moscowDate();
     setToday(date);
     setDay(date);
@@ -119,6 +125,13 @@ export default function BookingPage() {
     e.preventDefault();
     if (saving) return;
     setError("");
+    const normalizedEmail = normalizeEmail(email);
+    if (!normalizedEmail) {
+      setError(
+        "Укажите корректную электронную почту для уведомления о записи.",
+      );
+      return;
+    }
     const normalized = normalizePhone(phone);
     if (!normalized) {
       setError(
@@ -140,6 +153,7 @@ export default function BookingPage() {
       selectedISO,
       name.trim(),
       normalized,
+      normalizedEmail,
       car.trim(),
       comment.trim(),
       consent,
@@ -155,6 +169,7 @@ export default function BookingPage() {
         p_starts_at: selectedISO,
         p_name: name.trim(),
         p_phone: normalized,
+        p_email: normalizedEmail,
         p_car: car.trim(),
         p_comment: comment.trim(),
         p_consent: consent,
@@ -171,6 +186,10 @@ export default function BookingPage() {
           setRefresh((r) => r + 1);
           setStep(2);
           id.current = "";
+        } else if (error.message.includes("EMAIL_REQUIRED")) {
+          setError(
+            "Для записи нужна электронная почта. Проверьте поле или обновите страницу.",
+          );
         } else if (error.message.includes("BOOKING_LIMIT")) {
           setError(
             "Для этого телефона уже есть 3 предстоящие записи. Администратор может отменить лишние.",
@@ -185,7 +204,11 @@ export default function BookingPage() {
           );
         }
       } else {
-        setResult({ id: id.current, starts: selectedISO });
+        setResult({
+          id: id.current,
+          starts: selectedISO,
+          email: normalizedEmail,
+        });
       }
     } catch {
       setError("Нет соединения с сервисом. Попробуйте ещё раз.");
@@ -255,9 +278,17 @@ export default function BookingPage() {
             </div>
           </div>
           <p>
-            Запись сохранена в системе и доступна администратору. Это демо:
-            приезжать по демонстрационному адресу не нужно.
+            Время зарезервировано. Администратор проверит запись, а решение
+            придёт на <strong>{result.email}</strong>.
           </p>
+          {!mailStatus?.active && (
+            <p className="alert">
+              Автоотправка демо пока не подключена или временно не работает.
+              Решение сохранится в системе; отправка станет доступна после
+              подключения почты владельцем.
+            </p>
+          )}
+          <p>Это демо: приезжать по демонстрационному адресу не нужно.</p>
           <p className="small muted">
             Сохраните номер записи. Для отмены демонстрационной записи
             обратитесь к владельцу проекта.
@@ -325,7 +356,7 @@ export default function BookingPage() {
                 ? "Выберите одно направление обслуживания."
                 : step === 2
                   ? "Время московское. Приём и первичный осмотр — 1 час."
-                  : "Демо работает с сохранением данных. Используйте вымышленные контакты."}
+                  : "Укажите доступную вам почту для уведомления. Имя, телефон и автомобиль для демо можно выдумать."}
             </p>
             {error && (
               <div className="alert alert-error" role="alert">
@@ -518,6 +549,33 @@ export default function BookingPage() {
                       required
                       maxLength={25}
                     />
+                  </label>
+                  <label className="field-label span-two">
+                    Электронная почта
+                    <input
+                      className="input"
+                      type="email"
+                      inputMode="email"
+                      autoComplete="off"
+                      autoCapitalize="none"
+                      autoCorrect="off"
+                      spellCheck={false}
+                      placeholder="name@example.com"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
+                      maxLength={254}
+                    />
+                    <span className="field-help">
+                      На этот адрес придёт подтверждение записи или уведомление
+                      об отмене после решения администратора.
+                    </span>
+                    {!mailStatus?.active && (
+                      <span className="field-help">
+                        Автоотправка в демо пока не подключена или временно
+                        недоступна. Почта сохранится вместе с записью.
+                      </span>
+                    )}
                   </label>
                   <label className="field-label span-two">
                     Автомобиль

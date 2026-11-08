@@ -2708,3 +2708,103 @@ textarea.input {
     padding-right: max(16px, env(safe-area-inset-right));
   }
 }
+
+.field-help {
+  display: block;
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.7;
+  font-weight: 400;
+}
+.mail-setup {
+  max-width: 860px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  padding: 30px;
+  border-radius: 4px;
+}
+.mail-setup h2 {
+  font-size: 28px;
+  letter-spacing: -1px;
+}
+.mail-setup h3 {
+  font-size: 19px;
+}
+.mail-setup > p,
+.mail-instructions p,
+.mail-instructions li {
+  font-size: 14px;
+  line-height: 1.8;
+}
+.mail-connect {
+  max-width: 500px;
+  margin: 24px 0;
+}
+.mail-status-detail {
+  display: block;
+  margin-top: 8px;
+  font-size: 12px;
+}
+.mail-instructions {
+  margin-top: 30px;
+  border-top: 1px solid var(--line);
+  padding-top: 24px;
+}
+.mail-instructions ol {
+  padding-left: 22px;
+}
+.mail-instructions li {
+  padding: 6px 0;
+}
+.mail-instructions .text-link {
+  display: inline;
+  font-size: inherit;
+  color: var(--accent-ink);
+  text-decoration: underline;
+}
+.mail-instructions details {
+  margin-top: 20px;
+}
+.mail-instructions summary {
+  padding: 12px 0;
+  cursor: pointer;
+  font-size: 13px;
+}
+.mail-code {
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 12px;
+  line-height: 1.7;
+  white-space: pre;
+}
+.mail-setup-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin: 25px 0;
+}
+.record-info .record-mail-note {
+  font-size: 12px;
+  color: var(--accent-ink);
+  margin-top: 8px;
+}
+@media (max-width: 760px) {
+  .mail-setup {
+    padding: 24px 20px;
+  }
+  .mail-setup h2 {
+    font-size: 25px;
+  }
+  .mail-connect .button {
+    width: 100%;
+  }
+  .mail-instructions .button {
+    width: 100%;
+  }
+  .mail-code {
+    font-size: 16px;
+  }
+  .mail-instructions ol {
+    padding-left: 18px;
+  }
+}

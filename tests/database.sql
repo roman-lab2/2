@@ -3,9 +3,9 @@
 begin;
 select set_config('autera.test.admin',(select user_id::text from public.autera_admins limit 1),true);
 set local role anon;
-select public.autera_book('a07e0000-0000-4000-8000-000000000001','diagnostics',((now() at time zone 'Europe/Moscow')::date+42+time '10:00') at time zone 'Europe/Moscow','Демо проверка','+70000000421','Демо авто','AUTERA_QA',true);
+select public.autera_book('a07e0000-0000-4000-8000-000000000001','diagnostics',((now() at time zone 'Europe/Moscow')::date+42+time '10:00') at time zone 'Europe/Moscow','Демо проверка','+70000000421','Демо авто','AUTERA_QA',true,'qa@example.com');
 -- Retrying the same HTTP payload must not create a second booking.
-select public.autera_book('a07e0000-0000-4000-8000-000000000001','diagnostics',((now() at time zone 'Europe/Moscow')::date+42+time '10:00') at time zone 'Europe/Moscow','Демо проверка','+70000000421','Демо авто','AUTERA_QA',true);
+select public.autera_book('a07e0000-0000-4000-8000-000000000001','diagnostics',((now() at time zone 'Europe/Moscow')::date+42+time '10:00') at time zone 'Europe/Moscow','Демо проверка','+70000000421','Демо авто','AUTERA_QA',true,'qa@example.com');
 reset role;
 do $$ begin
  if (select count(*) from public.autera_bookings where id='a07e0000-0000-4000-8000-000000000001')!=1 then raise exception 'BOOKING_NOT_SAVED'; end if;
@@ -25,7 +25,7 @@ end $$;
 set local role anon;
 do $$ begin
  begin
-  perform public.autera_book('a07e0000-0000-4000-8000-000000000002','diagnostics',((now() at time zone 'Europe/Moscow')::date+42+time '10:00') at time zone 'Europe/Moscow','Демо проверка','+70000000422','Демо авто','AUTERA_QA',true);
+  perform public.autera_book('a07e0000-0000-4000-8000-000000000002','diagnostics',((now() at time zone 'Europe/Moscow')::date+42+time '10:00') at time zone 'Europe/Moscow','Демо проверка','+70000000422','Демо авто','AUTERA_QA',true,'qa@example.com');
   raise exception 'BLOCKED_SLOT_WAS_BOOKED';
  exception when unique_violation then null;
  end;
@@ -34,7 +34,7 @@ set local role authenticated;
 select set_config('request.jwt.claim.sub',current_setting('autera.test.admin'),true);
 update public.autera_slots set state='available' where starts_at=((now() at time zone 'Europe/Moscow')::date+42+time '10:00') at time zone 'Europe/Moscow';
 set local role anon;
-select public.autera_book('a07e0000-0000-4000-8000-000000000003','maintenance',((now() at time zone 'Europe/Moscow')::date+42+time '10:00') at time zone 'Europe/Moscow','Демо проверка','+70000000423','Демо авто','AUTERA_QA',true);
+select public.autera_book('a07e0000-0000-4000-8000-000000000003','maintenance',((now() at time zone 'Europe/Moscow')::date+42+time '10:00') at time zone 'Europe/Moscow','Демо проверка','+70000000423','Демо авто','AUTERA_QA',true,'qa@example.com');
 set local role authenticated;
 -- An unrelated signed-in user cannot read or change any new booking.
 select set_config('request.jwt.claim.sub','a07e0000-0000-4000-8000-999999999999',true);

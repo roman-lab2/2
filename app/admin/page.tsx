@@ -12,6 +12,8 @@ import {
   slotISO,
 } from "@/lib/schedule";
 import { Icon } from "@/components/icon";
+import { MailSetup } from "@/components/mail-setup";
+import { MailQueueItem, MailStatus, mailStateLabels } from "@/lib/email";
 import type { User } from "@supabase/supabase-js";
 export default function Admin() {
   const [user, setUser] = useState<User | null>(null);
@@ -23,6 +25,8 @@ export default function Admin() {
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
   const [bookings, setBookings] = useState<Booking[]>([]);
+  const [mailQueue, setMailQueue] = useState<MailQueueItem[]>([]);
+  const [mailStatus, setMailStatus] = useState<MailStatus | null>(null);
   const [loading, setLoading] = useState(false);
   const [date, setDate] = useState("");
   const [status, setStatus] = useState("all");
@@ -64,14 +68,29 @@ export default function Admin() {
   const load = useCallback(async () => {
     if (!allowed) return;
     setLoading(true);
-    const { data, error } = await supabase
-      .from("autera_bookings")
-      .select("*")
-      .gte("starts_at", slotISO(addDays(moscowDate(), -30), 0))
-      .order("starts_at", { ascending: true })
-      .limit(1000);
-    if (error) setError("Не удалось загрузить записи. Повторите запрос.");
-    else setBookings(data || []);
+    const [records, letters, mail] = await Promise.all([
+      supabase
+        .from("autera_bookings")
+        .select("*")
+        .gte("starts_at", slotISO(addDays(moscowDate(), -30), 0))
+        .order("starts_at", { ascending: true })
+        .limit(1000),
+      supabase
+        .from("autera_mail_queue")
+        .select(
+          "id,booking_id,event,state,attempts,last_error,created_at,sent_at",
+        )
+        .order("created_at", { ascending: false })
+        .limit(1000),
+      supabase.rpc("autera_mail_status"),
+    ]);
+    if (records.error)
+      setError("Не удалось загрузить записи. Повторите запрос.");
+    else setBookings(records.data || []);
+    if (letters.error)
+      setError("Не удалось загрузить состояние писем. Обновите страницу.");
+    else setMailQueue(letters.data || []);
+    if (!mail.error) setMailStatus(mail.data);
     setLoading(false);
   }, [allowed]);
   const loadSlots = useCallback(async () => {
@@ -146,7 +165,13 @@ export default function Admin() {
             item.reference +
             ": " +
             statusLabels[next].toLowerCase() +
-            ".",
+            "." +
+            (item.email && ["confirmed", "cancelled"].includes(next)
+              ? " Письмо поставлено в очередь." +
+                (!mailStatus?.active
+                  ? " Автоотправка пока не подключена или недоступна."
+                  : "")
+              : ""),
         );
         setCancelId("");
         await load();
@@ -254,8 +279,8 @@ export default function Admin() {
       (!date || moscowDate(new Date(b.starts_at)) === date) &&
       (status === "all" || b.status === status) &&
       (!search ||
-        [b.customer_name, b.phone, b.car, b.reference].some((s) =>
-          s.toLowerCase().includes(search.toLowerCase()),
+        [b.customer_name, b.phone, b.email || "", b.car, b.reference].some(
+          (s) => s.toLowerCase().includes(search.toLowerCase()),
         )),
   );
   const stateAt = (h: number) =>
@@ -314,7 +339,13 @@ export default function Admin() {
           className={tab === "schedule" ? "active" : ""}
           onClick={() => setTab("schedule")}
         >
-          Доступность времени
+          Расписание
+        </button>
+        <button
+          className={tab === "mail" ? "active" : ""}
+          onClick={() => setTab("mail")}
+        >
+          Почта
         </button>
       </div>
       {error && (
@@ -329,6 +360,14 @@ export default function Admin() {
       )}
       {tab === "bookings" ? (
         <>
+          {!mailStatus?.active && (
+            <div className="alert">
+              Автоотправка писем не подключена или временно недоступна.{" "}
+              <button className="text-link" onClick={() => setTab("mail")}>
+                Открыть настройки почты
+              </button>
+            </div>
+          )}
           <div className="admin-filters">
             <label className="field-label">
               Дата
@@ -360,7 +399,7 @@ export default function Admin() {
                 className="input"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                placeholder="Имя, телефон, авто или номер"
+                placeholder="Имя, телефон, почта, авто или номер"
               />
             </label>
             <button
@@ -412,6 +451,28 @@ export default function Admin() {
                       <a href={"tel:" + b.phone}>{b.phone}</a>
                     </p>
                     <p className="muted">{b.car}</p>
+                    {b.email ? (
+                      <p>
+                        <a href={"mailto:" + b.email}>{b.email}</a>
+                      </p>
+                    ) : (
+                      <p className="small muted">
+                        У старой записи нет электронной почты.
+                      </p>
+                    )}
+                    {mailQueue.find((m) => m.booking_id === b.id) && (
+                      <p className="record-mail-note">
+                        {
+                          mailStateLabels[
+                            mailQueue.find((m) => m.booking_id === b.id)!.state
+                          ]
+                        }
+                        {mailQueue.find((m) => m.booking_id === b.id)!
+                          .last_error === "DAILY_QUOTA"
+                          ? " · дневной лимит почты исчерпан"
+                          : ""}
+                      </p>
+                    )}
                     {b.comment && <p className="record-comment">{b.comment}</p>}
                     <small className="muted">{b.reference}</small>
                   </div>
@@ -468,6 +529,8 @@ export default function Admin() {
             </div>
           )}
         </>
+      ) : tab === "mail" ? (
+        <MailSetup adminEmail={user?.email || ""} />
       ) : (
         <section className="availability-panel">
           <h2>Расписание приёма</h2>

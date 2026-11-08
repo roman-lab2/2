@@ -105,6 +105,7 @@ export type Booking = {
   starts_at: string;
   customer_name: string;
   phone: string;
+  email: string | null;
   car: string;
   comment: string;
   status: string;
