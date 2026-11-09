@@ -1,0 +1,4 @@
+:HL["/_next/static/chunks/001drwnjweb11.css","style"]
+:HL["/images/hero-moscow.webp","image",{"fetchPriority":"high"}]
+1:[["children",{"s":"__PAGE__","h":160}]]
+0:{"b":"5cZw8Rjt3NU26n-Q_tpX6","t":{"t":{"s":"","h":80,"c":"$Q1"}}}

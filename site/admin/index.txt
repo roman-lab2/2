@@ -1,0 +1,30 @@
+1:"$Sreact.fragment"
+2:"/_next/static/chunks/3yt7f7gpxr0ug.js"
+3:I[58562,["$2"],"Header"]
+4:I[39756,["$2"],"default"]
+5:I[37457,["$2"],"default"]
+6:I[22016,["$2"],""]
+7:I[58562,["$2"],"Footer"]
+b:I[47257,["$2"],"ClientPageRoot"]
+c:"/_next/static/chunks/2fy9kn-4uf46_.js"
+d:"/_next/static/chunks/22xa97ut_e6zs.js"
+e:I[23261,["$2","$c","$d"],"default"]
+11:I[97367,["$2"],"OutletBoundary"]
+12:"$Sreact.suspense"
+14:"ViewportBoundary"
+15:I[97367,["$2"],"$14"]
+17:"MetadataBoundary"
+18:I[97367,["$2"],"$17"]
+1a:I[68027,["$2"],"default",1]
+:HL["/_next/static/chunks/001drwnjweb11.css","style"]
+9:X
+a:[["children",{"s":"__PAGE__","h":512,"d":{"r":["$","$1","c",{"children":[["$","$Lb",null,{"Component":"$e","serverProvidedParams":{"searchParams":{},"params":{},"promises":["$@f","$@10"]}}],[["$","script","script-0",{"src":"/_next/static/chunks/2fy9kn-4uf46_.js","async":true,"nonce":"$undefined"}],["$","script","script-1",{"src":"/_next/static/chunks/22xa97ut_e6zs.js","async":true,"nonce":"$undefined"}]],["$","$L11",null,{"children":["$","$12",null,{"name":"Next.MetadataOutlet","children":"$@13"}]}]]}],"p":false,"v":null}}]]
+8:[["children",{"s":"admin","h":512,"d":{"r":["$","$1","c",{"children":[null,["$","$L4",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],"p":false,"v":"$9"},"c":"$Qa"}]]
+0:{"P":null,"c":["","admin",""],"q":"","i":false,"t":{"t":{"s":"","h":528,"d":{"r":["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/001drwnjweb11.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}],["$","script","script-0",{"src":"/_next/static/chunks/3yt7f7gpxr0ug.js","async":true,"nonce":"$undefined"}]],["$","html",null,{"lang":"ru","children":["$","body",null,{"children":[["$","a",null,{"href":"#main","className":"skip-link","children":"Перейти к содержимому"}],["$","$L3",null,{}],["$","$L4",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L5",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[["$","main",null,{"id":"main","className":"container empty-page","children":[["$","h1",null,{"children":"Страница не найдена"}],["$","p",null,{"children":"Проверьте адрес или перейдите на главную."}],["$","$L6",null,{"className":"button button-primary","href":"/","children":"На главную →"}]]}],[]],"forbidden":"$undefined","unauthorized":"$undefined"}],["$","$L7",null,{}]]}]}]]}],"p":false,"v":null},"c":"$Q8"},"h":{"r":["$","$1","h",{"children":[null,["$","$L15",null,{"children":"$L16"}],["$","$L18",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$12",null,{"name":"Next.Metadata","children":"$L19"}]}],null]}],null]}],"p":false,"v":null}},"m":"$undefined","G":["$1a",[["$","link","0",{"rel":"stylesheet","href":"/_next/static/chunks/001drwnjweb11.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]]],"S":true,"r":"$undefined","s":"$undefined","a":"$undefined","l":"$undefined","p":"$undefined","d":"$undefined","b":"5cZw8Rjt3NU26n-Q_tpX6"}
+9:C
+f:{}
+10:"$a:0:1:d:r:props:children:0:props:serverProvidedParams:params"
+16:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1, viewport-fit=cover"}],["$","meta","2",{"name":"theme-color","content":"#edf5fb"}],["$","meta","3",{"name":"color-scheme","content":"light"}]]
+1b:I[27201,["$2"],"IconMark"]
+13:null
+19:[["$","title","0",{"children":"AUTERA — автосервис в Москве"}],["$","meta","1",{"name":"description","content":"Демонстрационный автосервис в Москве. Диагностика, обслуживание и ремонт. Онлайн-запись на свободное время без регистрации."}],["$","meta","2",{"name":"robots","content":"noindex, nofollow"}],["$","link","3",{"rel":"icon","href":"/favicon.svg"}],["$","$L1b","4",{}]]
