@@ -1,6 +1,7 @@
 node_modules/
 .next/
 out/
+.sourcecraft-output/
 .env*
 !.env.example
 *.tsbuildinfo

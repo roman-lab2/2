@@ -3,7 +3,8 @@ import { Header, Footer } from "@/components/chrome";
 import "./globals.css";
 export const metadata: Metadata = {
   metadataBase: new URL(
-    "https://autera-avtoservis.onrender.com",
+    process.env.NEXT_PUBLIC_SITE_URL ||
+      "https://autera-avtoservis.onrender.com",
   ),
   title: {
     default: "AUTERA — автосервис в Москве",
